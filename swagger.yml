@@ -1,0 +1,262 @@
+swagger: "2.0"
+info:
+  description: "This Microservice used to add the official information in the Employee Account"
+  version: "1.0.0"
+  title: "Employee Managemnt System"
+  contact:
+    email: "abdulmueez@wanclouds.net"
+host: "ems.swagger.io"
+basePath: "/v1"
+tags:
+  - name: "Admin"
+    description: ""
+  - name: "Employee"
+    description: ""
+  - name: "TeamLead"
+    description: ""
+schemes:
+  - "http"
+paths:
+  /Admin/add:
+    post:
+      tags:
+        - "Admin"
+      summary: "Add Official Information to the employee account"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/employeeofficial"
+      responses:
+        default:
+          description: "successfully Add"
+  /Admin/update/{cnic}:
+    post:
+      tags:
+        - "Admin"
+      summary: "Update Official Information to the employee account"
+      operationId: ""
+      produces:
+        - "application/json"
+      parameters:
+        - name: "cnic"
+          in: "path"
+          description: "Employee Cnic to update"
+          required: true
+          type: "string"
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/updateemployeeofficial"
+      responses:
+        default:
+          description: "successfully Update"
+  /Admin/delete/{cnic}:
+    delete:
+      tags:
+        - "Admin"
+      summary: "Update Official Information to the employee account"
+      operationId: ""
+      produces:
+        - "application/json"
+      parameters:
+        - name: "cnic"
+          in: "path"
+          description: "Employee Cnic to delete"
+          required: true
+          type: "string"
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/deleteemployeeofficial"
+      responses:
+        default:
+          description: "successfully Update"
+  /Admin/getrecoard/{cnic}:
+    get:
+      tags:
+        - "Admin"
+      summary: "Show Employee recoard"
+      operationId: "getemployee recoard"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "cnic"
+          in: "path"
+          description: "Enter CNIC to Show the Recoard"
+          required: true
+          type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/employeeofficial"
+        "400":
+          description: "Invalid email supplied"
+        "404":
+          description: "email not found"
+  /Employee/getrecoard/{cnic}:
+    get:
+      tags:
+        - "Employee"
+      summary: "Show Employee recoard"
+      operationId: ""
+      produces:
+        - "application/json"
+      parameters:
+        - name: "cnic"
+          in: "path"
+          description: "Enter CNIC to Show the Recoard"
+          required: true
+          type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/employeeofficial"
+        "400":
+          description: "Invalid CNIC"
+  /TeamLead/getrecoard/{cnic}:
+    get:
+      tags:
+        - "TeamLead"
+      summary: "Show Employee recoard"
+      operationId: ""
+      produces:
+        - "application/json"
+      parameters:
+        - name: "cnic"
+          in: "path"
+          description: "Enter CNIC to Show the Recoard"
+          required: true
+          type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/employeeofficial"
+        "400":
+          description: "Invalid CNIC"
+  /TeamLead/getteamrecoard/{cnic}:
+    get:
+      tags:
+        - "TeamLead"
+      summary: "Show Employee recoard"
+      operationId: ""
+      produces:
+        - "application/json"
+      parameters:
+        - name: "cnic"
+          in: "path"
+          description: "Enter CNIC to Show the Recoard"
+          required: true
+          type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/teamleademployeeofficial"
+        "400":
+          description: "Invalid CNIC"
+definitions:
+  employeeofficial:
+    type: "object"
+    required:
+      - "cnic"
+      - "salary"
+      - "designation"
+      - "department"
+      - "teamlead"
+      - "jobtype"
+      - "healthinsurance"
+      - "lifeinsurance"
+    properties:
+      cnic:
+        type: "string"
+        example: "31202"
+      salary:
+        type: "string"
+        example: "20000"
+      designation:
+        type: "string"
+        example: "BackEnd Developer"
+      department:
+        type: "string"
+        example: "GoLang"
+      teamlead:
+        type: "string"
+        example: "Kashif Ali"
+      jobtype:
+        type: "string"
+        example: "Intern"
+      healthinsurance:
+        type: "string"
+        example: "Nil"
+      lifeinsurance:
+        type: "string"
+        example: "Nil"
+  updateemployeeofficial:
+    type: "object"
+    required:
+      - "salary"
+      - "designation"
+      - "department"
+      - "teamlead"
+      - "jobtype"
+      - "healthinsurance"
+      - "lifeinsurance"
+    properties:
+      salary:
+        type: "string"
+        example: "20000"
+      designation:
+        type: "string"
+        example: "BackEnd Developer"
+      department:
+        type: "string"
+        example: "GoLang"
+      teamlead:
+        type: "string"
+        example: "Kashif Ali"
+      jobtype:
+        type: "string"
+        example: "Intern"
+      healthinsurance:
+        type: "string"
+        example: "Nil"
+      lifeinsurance:
+        type: "string"
+        example: "Nil"
+  deleteemployeeofficial:
+    type: "object"
+    required:
+      - "jobtype"
+    properties:
+      jobtype:
+        type: "string"
+        example: "Intern,Permanent,Resign,Terminate"
+  teamleademployeeofficial:
+    type: "object"
+    required:
+      - "designation"
+      - "department"
+      - "teamlead"
+      - "jobtype"
+    properties:
+      designation:
+        type: "string"
+        example: "Backend Developer"
+      department:
+        type: "string"
+        example: "Golang"
+      teamlead:
+        type: "string"
+        example: "Kashif Ali"
+      jobtype:
+        type: "string"
+        example: "Interum"
